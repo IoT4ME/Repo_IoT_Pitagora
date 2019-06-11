@@ -1,4 +1,4 @@
-#include <dht_nonblocking.h>    //inclusione librerie //
+#include <dht_nonblocking.h>    
 #include <LiquidCrystal.h>
 
 #define DHT_SENSOR_TYPE DHT_TYPE_11
@@ -13,9 +13,9 @@ LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 
 void setup() 
 {
-  lcd.begin(16, 2);
   pinMode(PIN_GREEN,OUTPUT);
   pinMode(PIN_RED,OUTPUT);
+  lcd.begin(16, 2);
   
 Serial.begin(115200);
 }
@@ -42,27 +42,40 @@ void loop()
  float humidity;
  if(measure_environment( &temperature, &humidity ) == true)
   {
-    lcd.setCursor(0,0);
-    Serial.print("Temperatura = " );
+    Serial.print("Temperatura: " );
     Serial.print(temperature, 1 );
+    Serial.print("C");
+    lcd.setCursor(0,0);
     lcd.print("Temp: ");
     lcd.print(temperature, 1);
     lcd.print("C");
-    lcd.setCursor(0,1);
-    Serial.print("C, Umidità = ");
-    Serial.print( humidity, 1 );
-    lcd.print("Umid: " );
-    lcd.print( humidity, 1 );
-    lcd.print("%");
+    Serial.println("Umidità: ");
+    Serial.print(humidity, 1 );
     Serial.println("%");
+    lcd.setCursor(0,1);
+    lcd.print("Umid: " );
+    lcd.print(humidity, 1 );
+    lcd.print("%");
+   
   }
  
-  if ( temperature >= 30.0 )
+  if (temperature >= 30.0 && humidity == 8.0)
   {
+    lcd.clear();
+    lcd.setCursor(0,0);
+    lcd.print("La temperaratura è troppo alta");
+    lcd.setCursor(0,1);
+    lcd.print("L'umidità è giusta");
     digitalWrite (PIN_RED,HIGH);
   }
-  else if ( humidity >= 7.0 )
+  
+  else if (temperarature <= 25 || humidity >= 10.0 )
   {
+    lcd.clear();
+    lcd.setCursor(0,0);
+    lcd.print("La temperaratura è giusta");
+    lcd.setCursor(0,1);
+    lcd.print("L'umidità è alta");
     digitalWrite (PIN_GREEN,HIGH);
   } 
 }
