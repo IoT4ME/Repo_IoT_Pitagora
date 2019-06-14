@@ -1,2 +1,2 @@
 # Repo_IoT_Pitagora
-Repository Corso Robotica &amp; IoT Pitagora (Policoro)
+Repo Codice Corso Robotica &amp; IoT Pitagora (Policoro)
